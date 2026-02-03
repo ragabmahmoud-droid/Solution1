@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_license" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.license</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="License" string="License" name="se_license_client" groups="base.group_system">
+                    <block title="License Configuration" name="license_config">
+                        <setting string="License Status" help="Current license validation status">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="license_enabled" class="col-lg-3"/>
+                                    <field name="license_enabled" readonly="1"/>
+                                </div>
+                                <div class="row">
+                                    <label for="license_server_url" class="col-lg-3"/>
+                                    <field name="license_server_url" readonly="1"/>
+                                </div>
+                                <div class="row">
+                                    <label for="license_status" class="col-lg-3"/>
+                                    <field name="license_status" readonly="1"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="License Details" help="Current license limits">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="license_users_current" class="col-lg-3"/>
+                                    <field name="license_users_current" readonly="1"/>
+                                    <span class="text-muted"> / </span>
+                                    <field name="license_users_allowed" readonly="1"/>
+                                    <span class="text-muted"> users</span>
+                                </div>
+                                <div class="row">
+                                    <label for="license_modules_allowed" class="col-lg-3"/>
+                                    <field name="license_modules_allowed" readonly="1" widget="text"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Actions" help="License management actions">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <button name="action_reload_license_config" 
+                                            type="object" 
+                                            string="Reload Configuration" 
+                                            class="btn-secondary"
+                                            icon="fa-refresh"/>
+                                    <button name="action_test_license_connection" 
+                                            type="object" 
+                                            string="Test Connection" 
+                                            class="btn-secondary ms-2"
+                                            icon="fa-plug"/>
+                                </div>
+                                <div class="text-muted mt8">
+                                    To change license settings, edit the config.json file in the se_license_client module directory.
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
