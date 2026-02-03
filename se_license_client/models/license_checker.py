@@ -67,6 +67,7 @@ def check_license(env, check_type):
         - Default values if disabled or error
     """
     # Return defaults if disabled
+    _logger.info("Checking license for type: %s", check_type)
     if not is_enabled():
         _logger.debug("License validation is disabled")
         if check_type == "modules":
@@ -75,17 +76,20 @@ def check_license(env, check_type):
             return 999999  # Unlimited users when disabled
         return None
     
+    _logger.info("License validation is enabled")
     license_server = get_server_url()
     
     if not license_server:
         _logger.warning("License server URL not configured")
         return None
     
+    _logger.info("License server URL: %s", license_server)
     db_name = env.cr.dbname
+    _logger.info("Database name: %s", db_name)
     url = f"{license_server.rstrip('/')}/se_license/check"
     
     try:
-        _logger.debug("Checking license at %s for database %s, type=%s", 
+        _logger.info("Checking license at %s for database %s, type=%s", 
                      url, db_name, check_type)
         
         response = requests.post(
@@ -95,7 +99,7 @@ def check_license(env, check_type):
             timeout=15
         )
         response.raise_for_status()
-        
+        _logger.info("Response: %s", response.json())
         result = response.json()
         
         # Handle Odoo JSON-RPC wrapper
