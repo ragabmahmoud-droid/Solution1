@@ -33,7 +33,7 @@ class IrModuleModule(models.Model):
         # Check each module being installed
         blocked_modules = []
         for module in self:
-            if module.name not in allowed_modules and module.name != 'se_license_client':
+            if module.name not in allowed_modules and module.name != 'asg_license_client':
                 blocked_modules.append(module.name)
         
         if blocked_modules:
@@ -60,7 +60,7 @@ class IrModuleModule(models.Model):
         """Prevent uninstalling the license client module when enabled"""
         if license_checker.is_enabled():
             for module in self:
-                if module.name == 'se_license_client':
+                if module.name == 'asg_license_client':
                     raise UserError(_(
                         "Cannot uninstall the License Client module while license validation is enabled.\n\n"
                         "To uninstall, first set 'enabled' to 'False' in the config.json file."
